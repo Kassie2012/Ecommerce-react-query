@@ -1,0 +1,74 @@
+import type { Product } from '../types/types';
+import { Rating } from '@smastrom/react-rating';
+import { Card, Stack, Badge, Button } from 'react-bootstrap';
+import '@smastrom/react-rating/style.css';
+import { useAppDispatch, useAppSelector } from '../types/hooks';
+import { addToCart, removeFromCart, changeQuantity } from '../types/cartSlice';
+import type { RootState } from '../types/store';
+
+
+const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+    const dispatch = useAppDispatch();
+    const cartMap = useAppSelector((state: RootState) => state.cart.items);
+    const quantity = cartMap[product.id]?.quantity || 0;
+
+
+    return (
+
+        <Card className="h-100">
+            <Card.Img
+                src={product.image}
+                alt={product.title}
+                variant="top"
+                style={{ height: 200, objectFit: 'contain' }}
+                onError={(e) => {
+                    e.currentTarget.onerror = null; //prevents loop
+                    e.currentTarget.src= 'https://via.placeholder.com/300x300?text=No+Image';
+                }}
+            />
+            <Card.Body className="d-flex flex-column">
+                <Card.Title className="mb-1">{product.title}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                    <Badge bg="secondary" pill className="text-uppercase">
+                        {product.category}
+                    </Badge>
+                </Card.Subtitle>
+                <Card.Text className="flex-grow-1 text-truncate" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    {product.description}
+                </Card.Text>
+
+                <Stack direction="horizontal" gap={2} className="mb-2">
+                    <Rating style={{ maxWidth: 150}} value={product.rating.rate} readOnly />
+                    {product.rating.count !=null && <small className="text-muted">
+                        ({product.rating.count})</small>}
+                </Stack>
+
+                <div className="mt-2 fw-bold fs-5">${product.price.toFixed(2)}</div>
+
+                <div className="mt-3">
+                    {quantity === 0 ? (
+                        <Button
+                            className="w-100"
+                            onClick={() => dispatch(addToCart({ id: product.id, title: product.title, price: product.price, image: product.image }))}
+                            >
+                                + Add to Cart
+                            </Button>
+                    ) : (
+                        <div className="d-flex align-items-center flex-column" style={{ gap: '.5rem' }}>
+                           <div className="d-flex align-items-center justify-content-center" style={{ gap: '.5rem' }}>
+                            <Button onClick={() => dispatch(changeQuantity({ id: product.id, quantity: quantity - 1 }))}> - </Button>
+                            <div className="fs-3">{quantity}</div>
+                            <Button onClick={() => dispatch(changeQuantity({ id: product.id, quantity: quantity + 1 }))}> + </Button>
+                            </div> 
+                            <Button variant="danger" size="sm" onClick={() => dispatch(removeFromCart(product.id))}>
+                                Remove
+                            </Button>
+                        </div>
+                    )}
+                </div>
+        </Card.Body>
+    </Card>
+    );
+};
+
+export default ProductCard;
