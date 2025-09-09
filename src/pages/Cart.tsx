@@ -22,13 +22,13 @@ export default function Cart() {
                 <div>Your Cart is empty...you should add something 😏😏😜</div>
                 <Button as={Link} to="/" variant="primary">Browse Products</Button>
             </Alert>
-        );
+        ); //empty cart state that nudges user to browse products
     }
 
     const handleCheckout= () => {
         dispatch(clearCart());
         setCheckout(true);
-    } 
+    } // simulated check out with success message directly below return
 
     return (
         <>

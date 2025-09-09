@@ -40,7 +40,7 @@ function Navbar() {
             fontWeight: 700
             }}>
               {count}
-            </div>
+            </div> //added a fun bubble that tells user what is in their cart
         )}
       </Button>
     </Container>

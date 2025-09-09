@@ -24,7 +24,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
                 onError={(e) => {
                     e.currentTarget.onerror = null; //prevents loop
                     e.currentTarget.src= 'https://via.placeholder.com/300x300?text=No+Image';
-                }}
+                }} //uses image placeholder on 404
             />
             <Card.Body className="d-flex flex-column">
                 <Card.Title className="mb-1">{product.title}</Card.Title>

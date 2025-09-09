@@ -20,7 +20,7 @@ const Home: React.FC = () => {
             selectedCategory
                 ? fetchProductsByCategory(selectedCategory)
                 : fetchProducts(),
-    });
+    }); //react query caches products; selectedCategory splits caches?
 
     if (isLoading) {
         return (

@@ -9,6 +9,6 @@ export interface Product {
         rate: number;
         count: number;
     };
-};
+}; //product matches Fakestore API shape. 
 
 export type Category = string;
