@@ -16,15 +16,6 @@ export default function Cart() {
     const count = useAppSelector(selectCartCount)
     const subtotal = useAppSelector(selectCartTotal)
 
-    if (count === 0) {
-        return (
-            <Alert variant="info" className="d-flex justify-content-between align-items-center">
-                <div>Your Cart is empty...you should add something 😏😏😜</div>
-                <Button as={Link} to="/" variant="primary">Browse Products</Button>
-            </Alert>
-        ); //empty cart state that nudges user to browse products
-    }
-
     const handleCheckout= () => {
         dispatch(clearCart());
         setCheckout(true);
@@ -33,10 +24,17 @@ export default function Cart() {
     return (
         <>
         {checkout && (
-            <Alert variant="success" className="mb-3">
+            <Alert variant="success" className="mb-3" dismissible onClose={() =>
+                setCheckout(false)}>
                 Checkout Complete! Cart Clear!
             </Alert>
         )}
+            {count === 0 ? (
+                <Alert variant="info" className="d-flex justify-content-between align-items-center">
+                    <div>Your Cart is empty...you should add something 😏😏😜</div>
+                    <Link to="/" className="btn btn-primary">Browse Products</Link>
+                </Alert>
+            ) : (
         <Row className="g-4">
 
             {/*Items to the Left*/}
@@ -116,7 +114,7 @@ export default function Cart() {
 
                         <div className="d-grid gap-2">
                             <Button variant="primary" onClick={handleCheckout}>Checkout</Button>
-                            <Button variant="outline-secondary" as={Link} to="/">Keep Shopping 🛒</Button>
+                            <Link to="/" className="btn btn-outline-secondary">Keep Shopping 🛒</Link>
                             <Button variant="outline-danger" onClick={() => dispatch(clearCart())}>
                                 Clear Cart
                             </Button>
@@ -125,6 +123,6 @@ export default function Cart() {
                 </Card>
             </Col>
         </Row>
+            )};
         </>
-    );
-}
+    )}
