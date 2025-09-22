@@ -3,11 +3,14 @@ import ProductCard from '../components/ProductCard';
 import FilterBar from '../components/FilterBar';
 import { useProductContext } from '../context/ProductContext';
 import { useQuery } from '@tanstack/react-query';
-import { fetchProducts, fetchProductsByCategory } from '../api/api';
+import { fetchProducts, fetchProductsByCategory } from '../api/api.firestore';
 import { Row, Col, Alert, Spinner } from 'react-bootstrap';
+import { useAuth } from '../context/AuthContext';
+import ProductForm from '../components/ProductForm';
 
 const Home: React.FC = () => {
     const { selectedCategory } = useProductContext();
+    const { user } = useAuth();
 
     const { 
         data: products = [], 
@@ -42,6 +45,11 @@ return (
     
     <div>
         <FilterBar />
+        {user && (
+            <div className="mb-3">
+                <ProductForm />
+            </div> //only logged in users can use
+        )}
 
         {products.length === 0 ? (
             <Alert variant="warning">

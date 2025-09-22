@@ -1,14 +1,32 @@
 export interface Product {
-    id: number;
+    id: string;
     title: string;
     price: number;
     description: string;
     category: string;
-    image: string;
-    rating: {
+    imageUrl: string;
+    rating?: {
         rate: number;
         count: number;
     };
-}; //product matches Fakestore API shape. 
+}; 
 
 export type Category = string;
+
+export interface OrderItem {
+    id: string;
+    title: string;
+    price: number;
+    imageUrl: string;
+    quantity: number;
+}
+
+export interface Order {
+    id: string;
+    userId: string;
+    createdAt: Date;
+    items: OrderItem[];
+    total: number;
+    buyerName?: string | null;
+    buyerEmail?: string | null;
+}

@@ -1,7 +1,7 @@
 import { Button, Form } from 'react-bootstrap';
 import { useProductContext } from '../context/ProductContext';
 import { useQuery } from '@tanstack/react-query';
-import { fetchCategories } from '../api/api';
+import { fetchCategories } from '../api/api.firestore';
 import type { Category } from '../types/types';
 
 export default function FilterBar() {

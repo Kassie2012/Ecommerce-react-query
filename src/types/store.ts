@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "../types/cartSlice";
 import type { CartItem } from '../types/cartSlice';
 
-function loadCartFromSession(): Record<number, CartItem> {
+function loadCartFromSession(): Record<string, CartItem> {
     try {
         const raw = sessionStorage.getItem('cart');
         if (!raw) return {};

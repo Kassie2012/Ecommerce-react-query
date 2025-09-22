@@ -2,15 +2,29 @@ import { Navbar as BootstrapNavbar, Button, Container, Nav } from 'react-bootstr
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../types/hooks';
 import { selectCartCount } from '../types/selector';
+import { useAuth } from '../context/AuthContext';
 
 function Navbar() {
   const count= useAppSelector(selectCartCount);
+  const { user } = useAuth();
 
   return <BootstrapNavbar sticky="top" className= "bg-white mb-4 shadow-sm" >
     <Container>
       <Nav className="me-auto">
         <Nav.Link as={NavLink} to="/">Home</Nav.Link>
         <Nav.Link as={NavLink} to="/cart">Shopping Cart</Nav.Link>
+        {user ? (
+          <>
+          <Nav.Link as={NavLink} to="/profile">Profile</Nav.Link>
+          <Nav.Link as={NavLink} to="/orders">Orders</Nav.Link>
+          <Nav.Link as={NavLink} to="/logout">Logout</Nav.Link>
+          </>
+        ) : ( 
+        <>
+        <Nav.Link as={NavLink} to="/register">Register</Nav.Link>
+        <Nav.Link as={NavLink} to="/login">Login</Nav.Link>
+        </>
+      )} 
       </Nav>
 
   <Button 

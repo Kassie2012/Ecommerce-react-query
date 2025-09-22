@@ -2,15 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export type CartItem = {
-    id: number;
+    id: string;
     title: string;
     price: number;
-    image: string;
+    imageUrl: string;
     quantity: number;
 };
 
 type CartState = {
-    items: Record<number, CartItem>;
+    items: Record<string, CartItem>;
 };
 
 const initialState: CartState = { items: {} };
@@ -27,7 +27,7 @@ const cartSlice = createSlice({
                 state.items[p.id] = { ...p, quantity: 1 };
             }
         },
-        changeQuantity: (state: CartState, action: PayloadAction<{ id: number; quantity: number }>) => {
+        changeQuantity: (state: CartState, action: PayloadAction<{ id: string; quantity: number }>) => {
             const item = state.items[action.payload.id];
             if (!item) return;
             if (action.payload.quantity <= 0) {
@@ -37,7 +37,7 @@ const cartSlice = createSlice({
             } 
         }, //removes item when quantity is 0
  
-        removeFromCart: (state: CartState, action: PayloadAction<number>) => {
+        removeFromCart: (state: CartState, action: PayloadAction<string>) => {
             delete state.items[action.payload];
         },
         clearCart: (state: CartState) => {

@@ -1,25 +1,51 @@
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { useAppDispatch, useAppSelector } from '../types/hooks';
 import { selectCartItems, selectCartTotal, selectCartCount } from '../types/selector';
 import { changeQuantity, removeFromCart, clearCart } from '../types/cartSlice';
 import { Link } from 'react-router-dom';
 import { Card, Row, Col, Button, Image, ListGroup, Stack, Alert } from 'react-bootstrap';
+import { useQueryClient } from '@tanstack/react-query';
+import { createOrder } from '../api/orders.firestore';
+import type { OrderItem } from '../types/types';
 
 const usd = new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD'});
 
 export default function Cart() {
     const dispatch = useAppDispatch();
     const [checkout, setCheckout] = useState(false);
+    const { user } = useAuth();
+    const qc = useQueryClient();
 
     //get state from store selectors
     const items = useAppSelector(selectCartItems)
     const count = useAppSelector(selectCartCount)
     const subtotal = useAppSelector(selectCartTotal)
 
-    const handleCheckout= () => {
-        dispatch(clearCart());
-        setCheckout(true);
-    } // simulated check out with success message directly below return
+    const handleCheckout= async () => {
+        if (!user) {
+            alert('Please log in to place an order 🙂');
+            return;
+        }
+        //map over cart items to an OrderItem[]
+        const orderItems: OrderItem[] = items.map((it) => ({
+            id: it.id,
+            title: it.title,
+            price: it.price,
+            imageUrl: it.imageUrl,
+            quantity: it.quantity,
+        }));
+        try {
+            await createOrder(user.uid, orderItems, subtotal, { name: user.displayName ?? null, email: user.email ?? null,});
+            dispatch(clearCart());
+            setCheckout(true);
+            //keep orders page fresh if user visits it
+            qc.invalidateQueries({ queryKey: ['orders', user.uid] });
+        } catch (e) {
+            alert('Could not place order. Please try again.');
+            console.error(e);
+        }
+    };
 
     return (
         <>
@@ -48,7 +74,7 @@ export default function Cart() {
                                 <Row className="align-items-center g-3">
                                     <Col xs="auto">
                                         <Image
-                                            src={item.image}
+                                            src={item.imageUrl}
                                             alt={item.title}
                                             rounded
                                             style={{ width: 72, height: 72, objectFit: 'contain' }}
@@ -125,4 +151,5 @@ export default function Cart() {
         </Row>
             )};
         </>
-    )}
+    );
+}
