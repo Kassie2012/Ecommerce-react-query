@@ -23,3 +23,5 @@
   - `Navbar.test.tsx` – cart badge shows/hides correctly (`count > 0`).
   - `ProductCard.test.tsx` – add/increment/decrement/remove flows update cart state.
   - `integration.test.tsx` – basic add-to-cart → badge/total reflect updates.
+  **Live Link**
+  https://ecommerce-react-query.vercel.app/
