@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { renderWithStore } from '../components/test-utils';
 import ProductCard from '../components/ProductCard';
 import * as Auth from '../context/AuthContext';
-import { vi } from 'vitest';
+import { vi, describe, it, expect } from 'vitest';
 
 //keep admin controls hidden
 vi.spyOn(Auth, 'useAuth').mockReturnValue({ user: null, } as any);

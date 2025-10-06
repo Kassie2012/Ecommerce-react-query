@@ -60,13 +60,11 @@ jobs:
       #install dep.
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       #step 4: deploy to Vercel
       - name: deploy to Vercel
         run: 
           npm install -g vercel
           vercel --prod --yes --token ${{secrets.VERCEL_TOKEN}}
-
-
 

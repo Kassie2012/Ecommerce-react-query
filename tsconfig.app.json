@@ -24,5 +24,5 @@
     "noUncheckedSideEffectImports": true,
     "types": ["vitest", "node"],
   },
-  "include": ["src", "../extra/CartContext.tsx", "../extra/FormatCurrency.ts", "setupTests.ts"]
+  "include": ["src", "../extra/CartContext.tsx", "../extra/FormatCurrency.ts", "src/setupTests.ts"]
 }
