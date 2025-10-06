@@ -8,10 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest",
+  "test": "vitest --config vitest.config.ts",
     "typecheck": "tsc -b && tsc -p tsconfig.vitest.json --noEmit",
-    "test:ci": "vitest run --coverage",
-    "coverage": "vitest run --coverage"
+  "test:ci": "vitest run --config vitest.config.ts --coverage",
+  "coverage": "vitest run --config vitest.config.ts --coverage",
+  "test:watch": "vitest --config vitest.config.ts --watch"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",

@@ -1,75 +1,41 @@
 name: Ecommerce CI Pipeline
 
-# Run the workflow on pushes and pull requests
 on:
   push:
     branches:
-      - master # Trigger on pushes to the master branch
+      - master
+      - main
   pull_request:
     branches:
-      - master # Trigger on pull requests targeting the master branch
+      - master
+      - main
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository code
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20  # Use a Node.js version compatible with your React app
-          cache: npm # Cache npm dependencies
+          node-version: '20'
+          cache: 'npm'
 
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm ci
 
       - name: Typecheck
         run: npm run typecheck
 
-      # Step 4: Run tests
       - name: Test (Vitest)
         run: npm run test:ci
         env:
           CI: true
 
-      # Step 5: Build the application
       - name: Build application
         run: npm run build
 
-
-  deploy:
-    needs: ci
-
-    if: github.ref == 'refs/heads/master' && success() && secrets.VERCEL_TOKEN != ''
-
-    runs-on: ubuntu-latest
-
-    env:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
-    steps:
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: who am i - debug
-        run: npx vercel whoami --token "$VERCEL_TOKEN"
-
-      - name: Vercel pull
-        run: npx vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
-
-
-      - name: Vercel build
-        run: npx vercel build --token "$VERCEL_TOKEN"
-
-
-      - name: Vercel deploy
-        run: npx vercel deploy --prebuilt --prod --token "$VERCEL_TOKEN"
+  
