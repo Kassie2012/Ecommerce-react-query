@@ -30,8 +30,8 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Test (Vitest)
-        run: npm run test:ci
+      - name: Test (Jest)
+        run: npm run test:jest
         env:
           CI: true
 

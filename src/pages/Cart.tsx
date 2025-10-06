@@ -149,7 +149,7 @@ export default function Cart() {
                 </Card>
             </Col>
         </Row>
-            )}
+            )};
         </>
     );
 }

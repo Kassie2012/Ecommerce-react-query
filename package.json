@@ -11,6 +11,8 @@
     "test": "vitest",
     "typecheck": "tsc -p tsconfig.vitest.json --noEmit",
     "test:ci": "vitest run --coverage",
+    "test:jest": "jest",
+    "test:ci:jest": "jest --coverage",
     "coverage": "vitest run --config vitest.config.ts --coverage",
     "test:watch": "vitest --config vitest.config.ts --watch"
   },

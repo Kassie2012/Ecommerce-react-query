@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": { "types": ["jest", "node"] },
+  "include": [
+    "__tests_jest__/**/*.jest.test.ts",
+    "__tests_jest__/**/*.jest.test.tsx",
+    "src/setupJest.ts"
+  ]
+}
