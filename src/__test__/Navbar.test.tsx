@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { renderWithStore, type AppState } from '../components/test-utils';
 import Navbar from '../components/Navbar';
 import * as Auth from '../context/AuthContext';
-import { vi } from 'vitest';
+import { vi, describe, it, expect, beforeEach } from 'vitest';
 
 describe('Navbar', () => { //tests for the navbar component
     beforeEach(() =>vi.restoreAllMocks()) //reset any mocks before each test so they don't interfere with each other

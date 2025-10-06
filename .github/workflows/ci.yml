@@ -60,7 +60,7 @@ jobs:
       #install dep.
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       #step 4: deploy to Vercel
       - name: deploy to Vercel
