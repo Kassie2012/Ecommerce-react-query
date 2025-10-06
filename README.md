@@ -1,27 +1,44 @@
-## CI/CD
+# 🛍️ React E-Commerce App (CI/CD + TDD)
 
-- **GitHub Actions**: `.github/workflows/ci.yml` runs on pushes/PRs to `main` and `master`.
-  - Steps: `npm ci` → `npm run typecheck` → `npm run test:ci` → `npm run build`.
-- **Deploy (Vercel)**:
-  - Uses Vercel CLI via `npx vercel pull/build/deploy` on **push** to `main`/`master`.
-  - Requires **`VERCEL_TOKEN`** in GitHub → *Settings → Secrets → Actions*.
-  - Project link lives in **`.vercel/project.json`** (committed).  
-    *(Or skip the CLI deploy and let Vercel “Import Git Repo” handle auto-deploys.)*
-- Manual run: Actions tab → **Run workflow**.
+This project is a **React E-Commerce application** that demonstrates **Test-Driven Development (TDD)** and a full **Continuous Integration / Continuous Deployment (CI/CD)** pipeline using **GitHub Actions** and **Vercel**.
 
-## Testing
+---
 
-- **Stack**: Vitest + React Testing Library + JSDOM.
-- **Config**:
-  - `vite.config.ts` includes a `test` block (jsdom, setup file, globals).
-  - `src/setupTests.ts` imports `@testing-library/jest-dom`.
-  - `tsconfig.vitest.json` adds `vitest/globals` types.
-- **Scripts**:
-  - `npm run test` – watch mode
-  - `npm run test:ci` – `vitest run --coverage` (outputs `coverage/`)
-- **What’s covered** (examples):
-  - `Navbar.test.tsx` – cart badge shows/hides correctly (`count > 0`).
-  - `ProductCard.test.tsx` – add/increment/decrement/remove flows update cart state.
-  - `integration.test.tsx` – basic add-to-cart → badge/total reflect updates.
-  **Live Link**
-  https://ecommerce-react-query.vercel.app/
+## 🚀 Live Application
+🔗 https://ecommerce-react-query.vercel.app/
+
+---
+
+## 🧩 Project Overview
+
+The E-Commerce app allows users to browse, filter, and manage products with a fully functional cart system. It uses **React Query** for Firestore data fetching and caching, and **Redux Toolkit** for cart state management and persistence.  
+
+The CI/CD pipeline automatically:
+- Runs unit and integration tests on each push to the `main` branch.  
+- Builds the project using Vite.  
+- Deploys to Vercel only if all tests pass successfully.
+
+---
+
+## ⚙️ Tech Stack
+
+- **Frontend:** React (Vite)
+- **State Management:** Redux Toolkit  
+- **Server State & Data Fetching:** React Query  
+- **Database:** Firebase Firestore  
+- **Testing:** Jest + React Testing Library  
+- **Deployment:** GitHub Actions + Vercel  
+
+---
+
+## 🧪 Test-Driven Development (TDD)
+
+- **Unit Tests:**  
+  - Two separate React components tested for rendering, state changes, and user interaction.  
+- **Integration Test:**  
+  - Ensures that adding a product updates the cart correctly.  
+- Tests run automatically in CI via Jest.
+
+Run tests locally:
+```bash
+npm run test:jest

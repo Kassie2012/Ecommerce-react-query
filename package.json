@@ -5,16 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest",
-    "typecheck": "tsc -p tsconfig.vitest.json --noEmit",
-    "test:ci": "vitest run --coverage",
-    "test:jest": "jest",
-    "test:ci:jest": "jest --coverage",
-    "coverage": "vitest run --config vitest.config.ts --coverage",
-    "test:watch": "vitest --config vitest.config.ts --watch"
+    "test": "jest",
+    "test:ci": "jest --ci --coverage",
+    "test:jest": "jest"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
@@ -40,10 +36,7 @@
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@types/react-router-bootstrap": "^0.26.8",
-    "@types/testing-library__jest-dom": "^5.14.9",
     "@vitejs/plugin-react": "^5.0.4",
-    "@vitest/coverage-v8": "^3.2.4",
-    "@vitest/ui": "^3.2.4",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
@@ -58,6 +51,6 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.9",
-    "vitest": "^3.2.4"
+    "whatwg-fetch": "^3.6.20"
   }
 }

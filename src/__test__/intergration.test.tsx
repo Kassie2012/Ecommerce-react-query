@@ -4,11 +4,10 @@ import { MemoryRouter } from 'react-router-dom';
 import { renderWithStore } from '../components/test-utils';
 import Navbar from '../components/Navbar';
 import * as Auth from '../context/AuthContext';
-import { vi, describe, it, expect } from 'vitest';
 import ProductCard from '../components/ProductCard';
 
-vi.spyOn(Auth, 'useAuth').mockReturnValue({ user: null } as any)
-vi.mock('@tanstack/react-query', () => ({
+jest.spyOn(Auth, 'useAuth').mockReturnValue({ user: null } as any)
+jest.mock('@tanstack/react-query', () => ({
     useQueryClient: () => ({}) ,
 }))
 

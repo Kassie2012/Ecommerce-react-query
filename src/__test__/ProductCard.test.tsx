@@ -3,13 +3,12 @@ import userEvent from '@testing-library/user-event';
 import { renderWithStore } from '../components/test-utils';
 import ProductCard from '../components/ProductCard';
 import * as Auth from '../context/AuthContext';
-import { vi, describe, it, expect } from 'vitest';
 
 //keep admin controls hidden
-vi.spyOn(Auth, 'useAuth').mockReturnValue({ user: null, } as any);
+jest.spyOn(Auth, 'useAuth').mockReturnValue({ user: null, } as any);
 
 //avoid wiring real client provider
-vi.mock('@tanstack/react-query', () => ({
+jest.mock('@tanstack/react-query', () => ({
     useQueryClient: () => ({}) 
 }))
 

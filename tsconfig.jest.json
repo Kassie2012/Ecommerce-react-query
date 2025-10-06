@@ -1,9 +1,18 @@
 {
-  "extends": "./tsconfig.app.json",
-  "compilerOptions": { "types": ["jest", "node"] },
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "types": ["jest", "node", "vite/client", "@testing-library/jest-dom"],
+    "noEmit": true
+  },
   "include": [
-    "__tests_jest__/**/*.jest.test.ts",
-    "__tests_jest__/**/*.jest.test.tsx",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/__tests__/**/*.{ts,tsx}",
+    "src/__test__/**/*.{ts,tsx}",
+    "jest.setup.ts",
+    "src/setupTests.ts",
     "src/setupJest.ts"
-  ]
+  ],
+  "exclude": ["node_modules", "dist"]
 }

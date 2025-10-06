@@ -3,13 +3,12 @@ import { MemoryRouter } from 'react-router-dom';
 import { renderWithStore, type AppState } from '../components/test-utils';
 import Navbar from '../components/Navbar';
 import * as Auth from '../context/AuthContext';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
 
 describe('Navbar', () => { //tests for the navbar component
-    beforeEach(() =>vi.restoreAllMocks()) //reset any mocks before each test so they don't interfere with each other
+    beforeEach(() =>jest.restoreAllMocks()) //reset any mocks before each test so they don't interfere with each other
 
     it('Logged out: shows Register/Login; no cart badge at 0', () => {
-        vi.spyOn(Auth, 'useAuth').mockReturnValue({ user: null} as any); //mock useAuth to simulate logged out user
+        jest.spyOn(Auth, 'useAuth').mockReturnValue({ user: null} as any); //mock useAuth to simulate logged out user
 
         const pre: Partial<AppState> = { cart: { items: {} } }
         renderWithStore(
@@ -27,7 +26,7 @@ describe('Navbar', () => { //tests for the navbar component
     })
 
     it('Logged in: shows Profile/Orders/Logout; shows cart badge with count', () => {
-        vi.spyOn(Auth, 'useAuth').mockReturnValue({ user: { uid: 'u1' } } as any); //mock useAuth to simulate logged in user
+        jest.spyOn(Auth, 'useAuth').mockReturnValue({ user: { uid: 'u1' } } as any); //mock useAuth to simulate logged in user
 
         const pre: Partial<AppState> = {
             cart: {
