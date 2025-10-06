@@ -1,6 +1,10 @@
 import { createContext, useContext, type ReactNode, useReducer } from 'react';
 import type { Product } from '../types/types';
 
+function assertNever(x: never): never {
+    throw new Error(`Unhandled action type: ${(x as {type?: string}).type ?? 'unknown'}`);
+}
+
 type ProductAction =
     {type: 'SET_PRODUCTS'; payload: Product[] } 
     | { type: 'SET_SELECTED_CATEGORY'; payload: string };
@@ -26,7 +30,7 @@ const productReducer = (
         case 'SET_SELECTED_CATEGORY':
             return { ...state, selectedCategory: action.payload };
         default:
-            throw new Error (`Unhandled action type: ${action.type}`)
+            return assertNever(action)
     };
 };
 

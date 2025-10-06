@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../lib/firebase/firebase';
-import styles from '../styles/auth-styles';
+import '../styles/auth-styles.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -42,21 +42,19 @@ const Login = () => {
     };
 
   return (
-    <div style={styles.form}>
+    <div className='form-container'>
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
-            {error && <p style={styles.error}>{error}</p>}
-            <fieldset style={styles.fieldset}>
-                <legend style={styles.legend}>Login</legend>
+            {error && <p className='error'>{error}</p>}
+            <fieldset>
+                <legend>Login</legend>
                 <input
-                    style={styles.input}
                     type='email'
                     placeholder='Email'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
-                    style={styles.input}
                     type='password'
                     placeholder='Password'
                     value={password}

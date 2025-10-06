@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../lib/firebase/firebase';
-import styles from '../styles/auth-styles';
+import '../styles/auth-styles.css';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
@@ -38,28 +38,25 @@ const Register = () => {
     };
 
   return (
-    <div style={styles.form}>
+    <div className='form-container'>
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>
-            {error && <p style={styles.error}>{error}</p>}
-            <fieldset style={styles.fieldset}>
-                <legend style={styles.legend}>Register</legend>
+            {error && <p className='error'>{error}</p>}
+            <fieldset>
+                <legend>Register</legend>
                 <input
-                    style={styles.input}
                     type='email'
                     placeholder='Email'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
-                    style={styles.input}
                     type='text'
                     placeholder='Name'
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
                 />
                 <input
-                    style={styles.input}
                     type='password'
                     placeholder='Password'
                     value={password}
