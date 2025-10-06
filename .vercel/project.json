@@ -1,0 +1,16 @@
+{
+  "projectId": "prj_0PoOaKFKoQXj1KjpSvjh3v0pMBSW",
+  "orgId": "team_uDLgDoitEe58Qt9u64HTkc6z",
+  "projectName": "ecommerce-react-query",
+  "settings": {
+    "createdAt": 1759520257379,
+    "framework": "vite",
+    "devCommand": null,
+    "installCommand": null,
+    "buildCommand": null,
+    "outputDirectory": null,
+    "rootDirectory": null,
+    "directoryListing": false,
+    "nodeVersion": "22.x"
+  }
+}
