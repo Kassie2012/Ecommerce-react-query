@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "../extra/CartContext.tsx", "../extra/FormatCurrency.ts"]
+  "include": ["src", "../extra/CartContext.tsx", "../extra/FormatCurrency.ts", "setupTests.ts"]
 }

@@ -9,10 +9,6 @@ on:
     branches:
       - master # Trigger on pull requests targeting the master branch
 
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -26,8 +22,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Use a Node.js version compatible with your React app
-          cache: 'npm' # Cache npm dependencies
+          node-version: 20  # Use a Node.js version compatible with your React app
+          cache: npm # Cache npm dependencies
 
       # Step 3: Install dependencies
       - name: Install dependencies
@@ -49,35 +45,31 @@ jobs:
 
   deploy:
     needs: ci
-    
-    if: github.ref == 'refs/heads/master'
+
+    if: github.ref == 'refs/heads/master' && success() && secrets.VERCEL_TOKEN != ''
 
     runs-on: ubuntu-latest
 
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
     steps:
-      # Step 1: Checkout the repository code
+
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20' 
-          cache: 'npm'
+      - name: who am i - debug
+        run: npx vercel whoami --token "$VERCEL_TOKEN"
 
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: npm ci
-
-      # Step 4: deploy to vercel
       - name: Vercel pull
-        run: npx vercel pull --yes --environment=production --token ${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel pull --yes --environment=production --token "$VERCEL_TOKEN"
 
-      #build locally
+
       - name: Vercel build
-        run: npx vercel build --token ${{ secrets.VERCEL_TOKEN }}
-      
-      # Step 5: deploy to vercel
+        run: npx vercel build --token "$VERCEL_TOKEN"
+
+
       - name: Vercel deploy
-        run: npx vercel deploy --prebuilt --prod --token ${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel deploy --prebuilt --prod --token "$VERCEL_TOKEN"
