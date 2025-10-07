@@ -47,9 +47,10 @@ function Navbar() {
         </svg>
         {count > 0 && (
           <div data-testid="cart-badge" 
-          className="position-absolute top-0 start-100 translate-middle-x badge rounded-pill bg-danger"
+          className="position-absolute badge rounded-pill bg-danger"
           style= {{ 
-            top: "0.25rem",
+            top: "2rem",
+            right: '.25rem',
             minWidth: "1.25rem", 
             height: "1.25rem",  
             lineHeight: "1.25rem",
@@ -57,6 +58,9 @@ function Navbar() {
             fontWeight: 700,
             zIndex: 1,
             pointerEvents: "none",
+            alignItems: "center",
+            justifyContent: "center",
+            display: "flex"
             }}>
               {count}
             </div> 
