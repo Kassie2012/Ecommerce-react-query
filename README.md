@@ -41,4 +41,4 @@ The CI/CD pipeline automatically:
 
 Run tests locally:
 ```bash
-npm run test:jest
+npm run test
